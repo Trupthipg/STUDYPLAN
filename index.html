@@ -1,0 +1,406 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPlan | Your Study Space</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="brand">📚 StudyPlan</div>
+        <p class="side-label">WORKSPACE</p>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">🏠 Dashboard</a>
+            <a href="#subjects" class="nav-link">📘 Subjects</a>
+            <a href="#questions" class="nav-link">📝 Questions & Answers</a>
+            <a href="#flashcards" class="nav-link">🧠 Flashcards</a>
+            <a href="#tasks" class="nav-link">✅ Study Tasks</a>
+            <a href="#focus" class="nav-link">⏱️ Focus Timer</a>
+            <a href="#exams" class="nav-link">📅 Exam Timetable</a>
+            <a href="#progress" class="nav-link">📊 My Progress</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Small steps every day.</p>
+            <strong>Keep learning ✨</strong>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+                <h1>Study Dashboard</h1>
+            </div>
+            <button id="themeToggle" class="theme-btn" type="button">
+                🌙 Dark mode
+            </button>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="section">
+            <div class="welcome-card">
+                <div>
+                    <p class="eyebrow">WELCOME BACK!</p>
+                    <h2>Make today count.</h2>
+                    <p>Plan your work, track your learning and stay consistent.</p>
+                </div>
+                <div class="welcome-icon">📖</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>📚</span>
+                    <p>Total Subjects</p>
+                    <h2 id="totalSubjects">0</h2>
+                </div>
+
+                <!-- STUDY STREAK -->
+<div class="panel streak-panel">
+    <div class="streak-heading">
+        <div>
+            <p class="eyebrow">BUILD YOUR CONSISTENCY</p>
+            <h3>🔥 Study Streak</h3>
+            <p id="streakMessage" class="muted">
+                Study for 30 minutes to start your streak!
+            </p>
+        </div>
+        <div class="streak-flame">🔥</div>
+    </div>
+
+    <div class="streak-stats">
+        <div class="streak-stat">
+            <strong id="currentStreak">0</strong>
+            <span>Current Streak</span>
+        </div>
+
+        <div class="streak-stat">
+            <strong id="longestStreak">0</strong>
+            <span>Longest Streak</span>
+        </div>
+    </div>
+
+    <div class="streak-today">
+        <div class="streak-today-heading">
+            <span>Today's Study Time</span>
+            <strong id="todayStudyTime">0 / 30 min</strong>
+        </div>
+
+        <div class="streak-progress-track">
+            <div id="todayStreakProgress"
+                 class="streak-progress-fill"></div>
+        </div>
+    </div>
+
+    <h4>This Week</h4>
+    <div id="streakCalendar" class="streak-calendar"></div>
+</div>
+                <div class="stat-card">
+                    <span>📝</span>
+                    <p>Saved Questions</p>
+                    <h2 id="totalQuestions">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>✅</span>
+                    <p>Completed Tasks</p>
+                    <h2 id="completedTasks">0</h2>
+                </div>
+                <div class="stat-card">
+                    <span>⏳</span>
+                    <p>Total Study Time</p>
+                    <h2 id="totalStudyTime">0 min</h2>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3>📈 Last 7 Days</h3>
+                        <span class="muted">Study minutes</span>
+                    </div>
+                    <div id="weeklyChart" class="chart"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>🎯 Task Progress</h3>
+                    <div class="progress-track">
+                        <div id="taskProgressBar" class="progress-fill"></div>
+                    </div>
+                    <h2 id="taskProgressText">0%</h2>
+                    <p class="muted">Tasks completed</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>📌 Upcoming Exams</h3>
+                <div id="dashboardExams" class="item-list"></div>
+            </div>
+        </section>
+
+        <!-- SUBJECTS -->
+        <section id="subjects" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">ORGANISE YOUR LEARNING</p>
+                    <h2>My Subjects</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <form id="subjectForm" class="input-row">
+                    <input id="subjectName" type="text"
+                           placeholder="Enter subject name" required>
+                    <button class="primary-btn" type="submit">+ Add Subject</button>
+                </form>
+            </div>
+
+            <div id="subjectList" class="card-grid"></div>
+        </section>
+
+        <!-- QUESTIONS -->
+        <section id="questions" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">BUILD YOUR OWN NOTES</p>
+                    <h2>Questions & Answers</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <form id="questionForm">
+                    <label>Choose subject</label>
+                    <select id="questionSubject" required>
+                        <option value="">Select a subject</option>
+                    </select>
+
+                    <label>Question</label>
+                    <textarea id="questionText"
+                              placeholder="Write your question..."
+                              required></textarea>
+
+                    <label>Answer</label>
+                    <textarea id="answerText"
+                              placeholder="Write your answer..."
+                              required></textarea>
+
+                    <label>Difficulty</label>
+                    <select id="questionDifficulty">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+
+                    <button class="primary-btn" type="submit">+ Save Question</button>
+                </form>
+            </div>
+
+            <div id="questionList" class="item-list"></div>
+        </section>
+        <!-- FLASHCARD MODE -->
+<section id="flashcards" class="section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">TEST YOUR MEMORY</p>
+            <h2>🧠 Flashcard Mode</h2>
+        </div>
+    </div>
+
+    <div class="panel flashcard-panel">
+        <label for="flashcardSubject">Choose subject</label>
+        <select id="flashcardSubject">
+            <option value="all">All Subjects</option>
+        </select>
+
+        <div class="flashcard-info">
+            <span id="flashcardCounter">0 / 0</span>
+            <span id="flashcardRevisionCount">Revised 0 times</span>
+        </div>
+
+        <div id="flashcardBox" class="flashcard-box">
+            <p id="flashcardLabel">QUESTION</p>
+            <h2 id="flashcardContent">Your saved questions will appear here.</h2>
+        </div>
+
+        <button id="flipFlashcard" class="secondary-btn" type="button">👀 Show Answer</button>
+
+        <div class="flashcard-navigation">
+            <button id="previousFlashcard" class="secondary-btn" type="button">← Previous</button>
+            <button id="nextFlashcard" class="primary-btn" type="button">Next →</button>
+        </div>
+
+        <button id="markFlashcardRevised" class="primary-btn" type="button">✓ Mark as Revised</button>
+
+        <p id="flashcardMessage" class="muted"></p>
+    </div>
+</section>
+
+        <!-- TASKS -->
+        <section id="tasks" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PLAN YOUR DAY</p>
+                    <h2>Study Tasks</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <form id="taskForm">
+                    <label>Task name</label>
+                    <input id="taskName" type="text"
+                           placeholder="Example: Revise CO Module 1" required>
+
+                    <label>Subject</label>
+                    <select id="taskSubject">
+                        <option value="">General study</option>
+                    </select>
+
+                    <label>Due date</label>
+                    <input id="taskDate" type="date">
+
+                    <button class="primary-btn" type="submit">+ Add Task</button>
+                </form>
+            </div>
+
+            <div id="taskList" class="item-list"></div>
+        </section>
+
+        <!-- FOCUS TIMER -->
+        <section id="focus" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">FOCUS ON ONE THING</p>
+                    <h2>Focus Timer</h2>
+                </div>
+            </div>
+
+            <div class="timer-card">
+                <p class="eyebrow">YOUR FOCUS SESSION</p>
+                <div id="timerDisplay" class="timer-display">25:00</div>
+
+                <label for="customMinutes">Set study time (minutes)</label>
+                <input id="customMinutes" type="number"
+                       min="1" max="600" value="25">
+
+                <button id="setTimerBtn" class="secondary-btn" type="button">
+                    Set Timer
+                </button>
+
+                <div class="timer-buttons">
+                    <button id="startTimer" class="primary-btn" type="button">
+                        ▶ Start
+                    </button>
+                    <button id="pauseTimer" class="secondary-btn" type="button">
+                        ⏸ Pause
+                    </button>
+                    <button id="resetTimer" class="secondary-btn" type="button">
+                        ↻ Reset
+                    </button>
+                </div>
+
+                <label class="check-label">
+                    <input id="alarmEnabled" type="checkbox" checked>
+                    Play sound when timer ends
+                </label>
+
+                <p id="timerMessage" class="muted">Ready to focus?</p>
+            </div>
+        </section>
+
+        <!-- EXAMS -->
+        <section id="exams" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">BE READY BEFORE EXAM DAY</p>
+                    <h2>Exam Timetable</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <form id="examForm">
+                    <label>Subject</label>
+                    <input id="examSubject" type="text"
+                           placeholder="Subject name" required>
+
+                    <label>Exam date</label>
+                    <input id="examDate" type="date" required>
+
+                    <label>Exam time</label>
+                    <input id="examTime" type="time" required>
+
+                    <label>Venue</label>
+                    <input id="examVenue" type="text"
+                           placeholder="Exam hall / venue">
+
+                    <button class="primary-btn" type="submit">+ Add Exam</button>
+                </form>
+            </div>
+
+            <div id="examList" class="item-list"></div>
+        </section>
+
+        <!-- PROGRESS -->
+        <section id="progress" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR EFFORT MATTERS</p>
+                    <h2>My Progress</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>➕ Log Study Time</h3>
+                <form id="studyLogForm" class="input-row">
+                    <input id="studyMinutes" type="number"
+                           min="1" max="1440"
+                           placeholder="Minutes studied" required>
+                    <input id="studyDate" type="date" required>
+                    <button class="primary-btn" type="submit">Save Time</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>📊 Weekly Study Graph</h3>
+                <div id="progressChart" class="chart"></div>
+            </div>
+
+            <!-- DOWNLOAD ONLY SAVED QUESTIONS AND ANSWERS -->
+            <div class="panel">
+                <h3>💾 Download My Notes</h3>
+                <p class="muted">
+                    Download all your saved questions and answers, organised by subject.
+                </p>
+
+                <div class="backup-buttons">
+                    <button id="exportTxt" class="secondary-btn" type="button">
+                        📥 Download My Notes (.txt)
+                    </button>
+                </div>
+
+                <p id="backupMessage" class="muted"></p>
+            </div>
+
+            <div class="panel">
+                <h3>🕒 Recent Study Sessions</h3>
+                <div id="sessionList" class="item-list"></div>
+            </div>
+        </section>
+
+        <footer>
+            Made for your learning journey ✨
+        </footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
